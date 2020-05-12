@@ -62,6 +62,12 @@ func main() {
 			output.Instance.Set(&js)
 			output.Write()
 		})
+		stick.On(joystick.StartPress, func(data interface{}) {
+			fmt.Println("start_press")
+			js.Button = types.JS_START
+			output.Instance.Set(&js)
+			output.Write()
+		})
 	}
 
 	robot := gobot.NewRobot("joystickBot",
