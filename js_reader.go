@@ -13,6 +13,9 @@ package main
 import (
 	"github.com/rticommunity/rticonnextdds-connector-go"
 	"github.com/rticommunity/rticonnextdds-connector-go/types"
+	"gobot.io/x/gobot"
+	"gobot.io/x/gobot/platforms/dexter/gopigo3"
+	"gobot.io/x/gobot/platforms/raspi"
 	"log"
 	"path"
 	"runtime"
@@ -40,6 +43,10 @@ func main() {
 		log.Panic(err)
 	}
 
+	raspiAdaptor := raspi.NewAdaptor()
+	gpg3 := gopigo3.NewDriver(raspiAdaptor)
+
+	work := func() {
 	// Get DDS samples
 	for {
 		connector.Wait(-1)
@@ -54,16 +61,34 @@ func main() {
 				}
 				switch js.Button{
 				case types.JS_LEFT:
+					gpg3.SetMotorDps(gopigo3.MOTOR_RIGHT, 1000)
+					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT, 0)
 					log.Println("left_press")
 				case types.JS_RIGHT:
+					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT, 1000)
+					gpg3.SetMotorDps(gopigo3.MOTOR_RIGHT, 0)
 					log.Println("right_press")
 				case types.JS_UP:
+					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, 1000)
 					log.Println("up_press")
 				case types.JS_DOWN:
+					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, -1000)
 					log.Println("down_press")
+				case types.JS_START:
+					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, 0)
+					log.Println("start_press")
 				}
 			}
 		}
+	}
 
 	}
+
+	robot := gobot.NewRobot("gopigo3",
+		[]gobot.Connection{raspiAdaptor},
+		[]gobot.Device{gpg3},
+		work,
+	)
+
+	robot.Start()
 }

@@ -27,6 +27,7 @@ This code contains trade secrets of Real-Time Innovations, Inc.
       <enumerator name="RIGHT" value="1"/>
       <enumerator name="UP" value="2"/>
       <enumerator name="DOWN" value="3"/>
+      <enumerator name="START" value="4"/>
     </enum>
   </types>
   <!-- Domain Library -->
