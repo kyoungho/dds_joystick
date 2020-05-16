@@ -11,6 +11,18 @@ import (
 	"fmt"
 )
 
+const (
+	JS_LEFT = 0
+	JS_RIGHT = 1
+	JS_UP = 2
+	JS_DOWN = 3
+	JS_START = 4
+)
+
+type Joystick struct {
+	Button int `json:"button"`
+}
+
 func main() {
 	// Find the file path to the XML configuration
 	_, filename, _, ok := runtime.Caller(0)
@@ -32,7 +44,7 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
-	var js types.Joystick
+	var js Joystick
 
 	joystickAdaptor := joystick.NewAdaptor()
 	stick := joystick.NewDriver(joystickAdaptor, joystick.Dualshock3)
@@ -40,31 +52,31 @@ func main() {
 	work := func() {
 		stick.On(joystick.LeftPress, func(data interface{}) {
 			fmt.Println("left_press")
-			js.Button = types.JS_LEFT
+			js.Button = JS_LEFT
 			output.Instance.Set(&js)
 			output.Write()
 		})
 		stick.On(joystick.RightPress, func(data interface{}) {
 			fmt.Println("right_press")
-			js.Button = types.JS_RIGHT
+			js.Button = JS_RIGHT
 			output.Instance.Set(&js)
 			output.Write()
 		})
 		stick.On(joystick.UpPress, func(data interface{}) {
 			fmt.Println("up_press")
-			js.Button = types.JS_UP
+			js.Button = JS_UP
 			output.Instance.Set(&js)
 			output.Write()
 		})
 		stick.On(joystick.DownPress, func(data interface{}) {
 			fmt.Println("down_press")
-			js.Button = types.JS_DOWN
+			js.Button = JS_DOWN
 			output.Instance.Set(&js)
 			output.Write()
 		})
 		stick.On(joystick.StartPress, func(data interface{}) {
 			fmt.Println("start_press")
-			js.Button = types.JS_START
+			js.Button = JS_START
 			output.Instance.Set(&js)
 			output.Write()
 		})
