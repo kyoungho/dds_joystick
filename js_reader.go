@@ -1,7 +1,8 @@
-package main
+package reader
 
 import (
 	"github.com/rticommunity/rticonnextdds-connector-go"
+	"github.com/kyoungho/dds_joystick/types"
 	"gobot.io/x/gobot"
 	"gobot.io/x/gobot/platforms/dexter/gopigo3"
 	"gobot.io/x/gobot/platforms/raspi"
@@ -43,27 +44,27 @@ func main() {
 		numOfSamples := input.Samples.GetLength()
 		for j := 0; j < numOfSamples; j++ {
 			if input.Infos.IsValid(j) {
-				var js Joystick
+				var js types.Joystick
 				err := input.Samples.Get(j, &js)
 				if err != nil {
 					log.Println(err)
 				}
 				switch js.Button{
-				case JS_LEFT:
+				case types.JS_LEFT:
 					gpg3.SetMotorDps(gopigo3.MOTOR_RIGHT, 1000)
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT, 0)
 					log.Println("left_press")
-				case JS_RIGHT:
+				case types.JS_RIGHT:
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT, 1000)
 					gpg3.SetMotorDps(gopigo3.MOTOR_RIGHT, 0)
 					log.Println("right_press")
-				case JS_UP:
+				case types.JS_UP:
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, 1000)
 					log.Println("up_press")
-				case JS_DOWN:
+				case types.JS_DOWN:
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, -1000)
 					log.Println("down_press")
-				case JS_START:
+				case types.JS_START:
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, 0)
 					log.Println("start_press")
 				}

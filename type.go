@@ -1,4 +1,4 @@
-package main
+package types
 
 const (
 	JS_LEFT = 0
