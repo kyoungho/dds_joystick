@@ -4,10 +4,10 @@ This application sends and receives joystick (Dualshock3) events over DDS, lever
 ### Getting Started
 This requires `sdl2` to be installed. 
 ```bash
-wget https://www.libsdl.org/release/SDL2-2.0.8.tar.gz
-tar -zxvf SDL2-2.0.8.tar.gz
-cd SDL2-2.0.8/
-./configure && make && sudo make install
+$ wget https://www.libsdl.org/release/SDL2-2.0.8.tar.gz
+$ tar -zxvf SDL2-2.0.8.tar.gz
+$ cd SDL2-2.0.8/
+$ ./configure && make && sudo make install
 ```
 
 RTI Go Connector requires [Git LFS](https://github.com/git-lfs/git-lfs/wiki/Installation) to check out the Connector C library files properly. 
