@@ -12,7 +12,6 @@ package main
 
 import (
 	"github.com/rticommunity/rticonnextdds-connector-go"
-	"github.com/rticommunity/rticonnextdds-connector-go/types"
 	"gobot.io/x/gobot"
 	"gobot.io/x/gobot/platforms/dexter/gopigo3"
 	"gobot.io/x/gobot/platforms/raspi"
@@ -20,6 +19,18 @@ import (
 	"path"
 	"runtime"
 )
+
+const (
+	JS_LEFT = 0
+	JS_RIGHT = 1
+	JS_UP = 2
+	JS_DOWN = 3
+	JS_START = 4
+)
+
+type Joystick struct {
+	Button int `json:"button"`
+}
 
 func main() {
 	// Find the file path to the XML configuration
@@ -54,27 +65,27 @@ func main() {
 		numOfSamples := input.Samples.GetLength()
 		for j := 0; j < numOfSamples; j++ {
 			if input.Infos.IsValid(j) {
-				var js types.Joystick
+				var js Joystick
 				err := input.Samples.Get(j, &js)
 				if err != nil {
 					log.Println(err)
 				}
 				switch js.Button{
-				case types.JS_LEFT:
+				case JS_LEFT:
 					gpg3.SetMotorDps(gopigo3.MOTOR_RIGHT, 1000)
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT, 0)
 					log.Println("left_press")
-				case types.JS_RIGHT:
+				case JS_RIGHT:
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT, 1000)
 					gpg3.SetMotorDps(gopigo3.MOTOR_RIGHT, 0)
 					log.Println("right_press")
-				case types.JS_UP:
+				case JS_UP:
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, 1000)
 					log.Println("up_press")
-				case types.JS_DOWN:
+				case JS_DOWN:
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, -1000)
 					log.Println("down_press")
-				case types.JS_START:
+				case JS_START:
 					gpg3.SetMotorDps(gopigo3.MOTOR_LEFT + gopigo3.MOTOR_RIGHT, 0)
 					log.Println("start_press")
 				}
