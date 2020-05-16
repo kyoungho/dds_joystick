@@ -20,8 +20,8 @@ $ git lfs install
 Build and run:
 ```bash
 $ go get -v github.com/kyoungho/dds_joystick
-$ go build ~/go/src/github.com/kyoungho/dds_joystick/js_writer.
-$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/go/src/github.com/rticommunity/rticonnextdds-connector-go/rticonnextdds-connector/lib/armv6vfphLinux3.xgcc4.7.2
+$ go build ~/go/src/github.com/kyoungho/dds_joystick/writer/js_writer.go
+$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/go/src/github.com/rticommunity/rticonnextdds-connector-go/rticonnextdds-connector/lib/armv6vfphLinux3.xgcc4.7.2
 ```
 
 You should replace `armv6vfphLinux3.xgcc4.7.2` with your architecture. 
