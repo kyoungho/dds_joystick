@@ -17,7 +17,7 @@ func main() {
 	if !ok {
 		log.Panic("runtime.Caller error")
 	}
-	filepath := path.Join(path.Dir(filename), "./Joystick.xml")
+	filepath := path.Join(path.Dir(filename), "../Joystick.xml")
 
 	// Create a connector defined in the XML configuration
 	connector, err := rti.NewConnector("MyParticipantLibrary::Zero", filepath)
