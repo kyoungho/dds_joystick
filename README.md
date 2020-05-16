@@ -22,6 +22,7 @@ Build and run:
 $ go get -v github.com/kyoungho/dds_joystick
 $ go build ~/go/src/github.com/kyoungho/dds_joystick/writer/js_writer.go
 $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/go/src/github.com/rticommunity/rticonnextdds-connector-go/rticonnextdds-connector/lib/armv6vfphLinux3.xgcc4.7.2
+$ ./js_writer
 ```
 
 You should replace `armv6vfphLinux3.xgcc4.7.2` with your architecture. 
