@@ -1,4 +1,4 @@
-package writer
+package main
 
 import (
 	"github.com/rticommunity/rticonnextdds-connector-go"
